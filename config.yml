@@ -1,3 +1,6 @@
+options:
+  # When you jump off of a ramp on rails, it is more realistic. Default: true
+  better-jumps: true
 speeds:
   # ID of break block. Default: Wool (35)
   break-id: 35
@@ -11,7 +14,12 @@ speeds:
   stop-id: 49
   # ID of speed block. Default: Iron Block (42)
   reverser-id: 42
+  # ID of fly block. Default: Sponge (19)
+  fly-id: 19
+  # Speed when a player is flying in a minecart. Default: 2
+  fly-speed: 2
 messages:
   # Message sent to player when stopped by a stopper block. Default: "&5Thanks for riding!".
   # You can also use colors. Example: "&5Thanks for riding!" &5 = Purple, etc.
   eject-msg: '&5Thanks for riding!'
+  fly-msg: '&2To infinity... and beyond!'

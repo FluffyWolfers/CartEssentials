@@ -12,3 +12,5 @@ permissions:
     default: op
   cartessentials.reload:
     default: op
+  cartessentials.fly:
+    default: true

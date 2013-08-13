@@ -1,5 +1,7 @@
 package me.FluffyWolfers.CE.Listeners;
 
+import java.util.ArrayList;
+
 import me.FluffyWolfers.CE.CE;
 
 import org.bukkit.ChatColor;
@@ -7,15 +9,21 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
+import org.bukkit.event.vehicle.VehicleUpdateEvent;
+import org.bukkit.util.Vector;
 
 public class CEBlockListener implements Listener{
+	
+	public ArrayList<Player> flying = new ArrayList<Player>();
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPassOverBlock(VehicleMoveEvent e){
@@ -70,6 +78,111 @@ public class CEBlockListener implements Listener{
 			if(type.getId() == CE.c.getConfig().getInt("speeds.reverser-id")){
 				
 				v.setVelocity(v.getVelocity().multiply(-1.0));
+				
+			}
+			//Fly
+			if(type.getId() == CE.c.getConfig().getInt("speeds.fly-id")){
+				
+				Vector vec = p.getLocation().getDirection();
+		        vec.setY(vec.getY() * Double.parseDouble(String.valueOf(getSpeed("speeds.fly-speed")) + "D"));
+		        
+		        flying.add(p);
+				
+			}
+			
+		}
+		
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onRightClick(PlayerMoveEvent e){
+		
+		Player p = e.getPlayer();
+		
+		if(!p.isInsideVehicle()){
+			
+			if(flying.contains(p)){
+				
+				flying.remove(p);
+				
+			}
+			
+		}
+		
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onVehicleUpdateJump(VehicleUpdateEvent e){
+		
+		if(CE.c.getConfig().getBoolean("options.better-jumps")){
+			
+			Vehicle v = e.getVehicle();
+			
+			if(v instanceof Minecart){
+				
+				if(v.getPassenger() != null){
+					
+					Player p = (Player) v.getPassenger();
+					
+					if(!v.isOnGround()&&!flying.contains(p)){
+						
+						Vector vec = v.getVelocity();
+						vec.multiply(1.5);
+					    ((Minecart) v).setFlyingVelocityMod(new Vector(0.67, 0.67, 0.67));
+					    v.setVelocity(vec);
+						
+					}
+					
+				}else{
+					
+					if(!v.isOnGround()){
+						
+						Vector vec = v.getVelocity();
+						vec.multiply(1.5);
+					    ((Minecart) v).setFlyingVelocityMod(new Vector(0.67, 0.67, 0.67));
+					    v.setVelocity(vec);
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onVehicleUpdate(VehicleUpdateEvent e){
+		
+		Vehicle v = e.getVehicle();
+		
+		if(v instanceof Minecart){
+			
+			if(v.getPassenger() != null){
+				
+				if(v.getPassenger().getType().equals(EntityType.PLAYER)){
+					
+					Player p = (Player) v.getPassenger();
+					
+					if(flying.contains(p)){
+						
+						if(p.hasPermission("cartessentials.fly")){
+							
+							Vector vec = p.getLocation().getDirection();
+						    //vec.multiply(1);
+						    //vec.setY(vec.getY() * 0.4D);
+						    //if(vec.getY() < 0.0D){
+						    	//vec.setY(vec.getY() + 0.3D);
+						    //}
+						    ((Minecart) v).setFlyingVelocityMod(new Vector(0, 0, 0));
+						    v.setVelocity(vec);
+							
+						}
+						
+					}
+					
+				}
 				
 			}
 			
