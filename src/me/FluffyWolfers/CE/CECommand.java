@@ -93,6 +93,44 @@ public class CECommand implements CommandExecutor{
 						
 					}
 					
+				}else if(command.equalsIgnoreCase("fly")){
+					
+					if(p.hasPermission("cartessentials.command.fly")){
+						
+						if(p.hasPermission("cartessentials.fly")){
+							
+							if(p.isInsideVehicle()){
+								
+								Vehicle v = (Vehicle) p.getVehicle();
+								
+								if(v instanceof Minecart){
+									
+									if(!CEBlockListener.flying.contains(p)){
+										
+										CEBlockListener.flying.add(p);
+										
+										p.sendMessage(CE.getPrefix() + "You are now flying!");
+										
+									}else{
+										p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You are already flying!");
+									}
+									
+								}else{
+									p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You do not in a minecart!");
+								}
+								
+							}else{
+								p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You do not in a minecart!");
+							}
+							
+						}else{
+							p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You do not have permission to fly!");
+						}
+						
+					}else{
+						p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You do not have permission to use this command!");
+					}
+					
 				}
 				
 			}
