@@ -10,12 +10,19 @@ commands:
 permissions:
   cartessentials.ce:
     default: true
-  cartessentials.reload:
+  cartessentials.command.reload:
     default: op
   cartessentials.fly:
     default: true
-  cartessentials.stationary:
+  cartessentials.command.stationary:
     default: true
+  cartessentials.command.fly:
+    default: true
+  cartessentials.command.*:
+    children:
+      cartessentials.command.stationary: true
+      cartessentials.command.reload: true
+      cartessentials.command.fly: true
   cartessentials.jump:
     default: true
   cartessentials.effects.speed:

@@ -39,10 +39,12 @@ public class CECommand implements CommandExecutor{
 					
 					p.sendMessage(CE.getPrefix() + "/ce help - Displays help menu");
 					p.sendMessage(CE.getPrefix() + "/ce reload - Reloads config file");
+					p.sendMessage(CE.getPrefix() + "/ce stationary - Makes you fall very slowly while flying");
+					p.sendMessage(CE.getPrefix() + "/ce fly - Makes you fly without a sponge");
 					
 				}else if(command.equalsIgnoreCase("reload")){
 					
-					if(p.hasPermission("cartessentials.reload")){
+					if(p.hasPermission("cartessentials.command.reload")){
 						
 						CE.c.reloadConfig();
 						
@@ -52,7 +54,7 @@ public class CECommand implements CommandExecutor{
 					
 				}else if(command.equalsIgnoreCase("stationary")){
 					
-					if(p.hasPermission("cartessentials.stationary")){
+					if(p.hasPermission("cartessentials.command.stationary")){
 						
 						if(p.isInsideVehicle()){
 							
