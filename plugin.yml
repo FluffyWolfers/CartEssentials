@@ -1,0 +1,14 @@
+name: CartEssentials
+main: me.FluffyWolfers.CE.CE
+version: 1.0
+commands:
+  cartessentials:
+    description: Main command for ChestRegeneration plugin
+    permission: cartessentials.ce
+    permission-message: No no no!
+    aliases: [cart, essentials, cartessentials, ce]
+permissions:
+  cartessentials.ce:
+    default: op
+  chestregen.reload:
+    default: op
