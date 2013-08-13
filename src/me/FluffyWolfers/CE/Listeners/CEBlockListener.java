@@ -3,6 +3,7 @@ package me.FluffyWolfers.CE.Listeners;
 import java.util.ArrayList;
 
 import me.FluffyWolfers.CE.CE;
+import me.FluffyWolfers.CE.CECommand;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -23,7 +24,7 @@ import org.bukkit.util.Vector;
 
 public class CEBlockListener implements Listener{
 	
-	public ArrayList<Player> flying = new ArrayList<Player>();
+	public static ArrayList<Player> flying = new ArrayList<Player>();
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPassOverBlock(VehicleMoveEvent e){
@@ -155,6 +156,12 @@ public class CEBlockListener implements Listener{
 				
 			}
 			
+			if(CECommand.stationary.contains(p)){
+				
+				CECommand.stationary.remove(p);
+				
+			}
+			
 		}
 		
 	}
@@ -219,16 +226,25 @@ public class CEBlockListener implements Listener{
 					
 					if(flying.contains(p)){
 						
-						if(p.hasPermission("cartessentials.fly")){
+						if(!CECommand.stationary.contains(p)){
 							
-							Vector vec = p.getLocation().getDirection();
-						    //vec.multiply(1);
-						    //vec.setY(vec.getY() * 0.4D);
-						    //if(vec.getY() < 0.0D){
-						    	//vec.setY(vec.getY() + 0.3D);
-						    //}
-						    ((Minecart) v).setFlyingVelocityMod(new Vector(0, 0, 0));
-						    v.setVelocity(vec);
+							if(p.hasPermission("cartessentials.fly")){
+								
+								Vector vec = p.getLocation().getDirection();
+							    vec.multiply(1);
+							    vec.setY(vec.getY() * 0.2D);
+							    if(vec.getY() < 0.0D){
+							    	vec.setY(vec.getY() + 0.1D);
+							    }
+							    ((Minecart) v).setFlyingVelocityMod(new Vector(0, 0, 0));
+							    v.setVelocity(vec);
+								
+							}
+							
+						}else{
+							
+							((Minecart) v).setFlyingVelocityMod(new Vector(0, ((Minecart) v).getFlyingVelocityMod().getY(), 0));
+							v.setVelocity(v.getVelocity().multiply(0));
 							
 						}
 						
