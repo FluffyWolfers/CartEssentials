@@ -43,7 +43,7 @@ public class CE extends JavaPlugin{
 	}
 	
 	public static String getPrefix(){
-		return ChatColor.AQUA + "[" + ChatColor.DARK_AQUA + "ChestEssentials" + ChatColor.AQUA + "] " + ChatColor.LIGHT_PURPLE;
+		return ChatColor.AQUA + "[" + ChatColor.DARK_AQUA + "CartEssentials" + ChatColor.AQUA + "] " + ChatColor.LIGHT_PURPLE;
 	}
 	
 	public static String getLogPrefix(){
