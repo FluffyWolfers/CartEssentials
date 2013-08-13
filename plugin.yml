@@ -9,10 +9,12 @@ commands:
     aliases: [cart, essentials, cartessentials, ce]
 permissions:
   cartessentials.ce:
-    default: op
+    default: true
   cartessentials.reload:
     default: op
   cartessentials.fly:
+    default: true
+  cartessentials.stationary:
     default: true
   cartessentials.jump:
     default: true
