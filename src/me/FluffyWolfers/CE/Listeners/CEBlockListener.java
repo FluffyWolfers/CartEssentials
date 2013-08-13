@@ -51,33 +51,81 @@ public class CEBlockListener implements Listener{
 			//Speed
 			if(type.getId() == CE.c.getConfig().getInt("speeds.speed-id")){
 				
-				v.setVelocity(v.getVelocity().multiply(getSpeed("speeds.speed-speed")));
+				if(p != null){
+					
+					if(p.hasPermission("cartessentials.effects.speed")){
+						
+						v.setVelocity(v.getVelocity().multiply(getSpeed("speeds.speed-speed")));
+						
+					}
+					
+				}else{
+					
+					v.setVelocity(v.getVelocity().multiply(getSpeed("speeds.speed-speed")));
+					
+				}
 				
 			}
 			//Break
 			if(type.getId() == CE.c.getConfig().getInt("speeds.break-id")){
 				
-				v.setVelocity(v.getVelocity().multiply(getSpeed("speeds.break-speed")));
+				if(p != null){
+					
+					if(p.hasPermission("cartessentials.effects.break")){
+						
+						v.setVelocity(v.getVelocity().multiply(getSpeed("speeds.break-speed")));
+						
+					}
+					
+				}else{
+					
+					v.setVelocity(v.getVelocity().multiply(getSpeed("speeds.break-speed")));
+					
+				}
 				
 			}
 			//Stop
 			if(type.getId() == CE.c.getConfig().getInt("speeds.stop-id")){
 				
-				v.setVelocity(v.getVelocity().multiply(0.0));
-				
 				if(p != null){
-					v.eject();
-					String color = ChatColor.translateAlternateColorCodes('&', getMsg("messages.eject-msg"));
-					p.sendMessage(CE.getPrefix() + color);
+					
+					if(p.hasPermission("cartessentials.effects.stop")){
+						
+						v.setVelocity(v.getVelocity().multiply(0.0));
+						
+						v.eject();
+						String color = ChatColor.translateAlternateColorCodes('&', getMsg("messages.eject-msg"));
+						p.sendMessage(CE.getPrefix() + color);
+						
+						((Minecart) v).setMaxSpeed(0D);
+						
+					}
+					
+				}else{
+					
+					v.setVelocity(v.getVelocity().multiply(0.0));
+					
+					((Minecart) v).setMaxSpeed(0D);
+					
 				}
-				
-				((Minecart) v).setMaxSpeed(0D);
 				
 			}
 			//Reverser
 			if(type.getId() == CE.c.getConfig().getInt("speeds.reverser-id")){
 				
-				v.setVelocity(v.getVelocity().multiply(-1.0));
+				if(p != null){
+					
+					if(p.hasPermission("cartessentials.effects.reverse")){
+						
+						v.setVelocity(v.getVelocity().multiply(-1.0));
+						
+					}
+					
+				}else{
+					
+					v.setVelocity(v.getVelocity().multiply(-1.0));
+					
+				}
 				
 			}
 			//Fly
@@ -124,12 +172,16 @@ public class CEBlockListener implements Listener{
 					
 					Player p = (Player) v.getPassenger();
 					
-					if(!v.isOnGround()&&!flying.contains(p)){
+					if(p.hasPermission("cartessentials.jump")){
 						
-						Vector vec = v.getVelocity();
-						vec.multiply(1.5);
-					    ((Minecart) v).setFlyingVelocityMod(new Vector(0.67, 0.67, 0.67));
-					    v.setVelocity(vec);
+						if(!v.isOnGround()&&!flying.contains(p)){
+							
+							Vector vec = v.getVelocity();
+							vec.multiply(1.5);
+						    ((Minecart) v).setFlyingVelocityMod(new Vector(0.67, 0.67, 0.67));
+						    v.setVelocity(vec);
+							
+						}
 						
 					}
 					

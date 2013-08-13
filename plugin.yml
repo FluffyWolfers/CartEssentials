@@ -14,3 +14,19 @@ permissions:
     default: op
   cartessentials.fly:
     default: true
+  cartessentials.jump:
+    default: true
+  cartessentials.effects.speed:
+    default: true
+  cartessentials.effects.break:
+    default: true
+  cartessentials.effects.stop:
+    default: true
+  cartessentials.effects.reverse:
+    default: true
+  cartessentials.effects.*:
+    children:
+      cartessentials.effects.speed: true
+      cartessentials.effects.break: true
+      cartessentials.effects.stop: true
+      cartessentials.effects.reverse: true
