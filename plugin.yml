@@ -10,5 +10,5 @@ commands:
 permissions:
   cartessentials.ce:
     default: op
-  chestregen.reload:
+  cartessentials.reload:
     default: op

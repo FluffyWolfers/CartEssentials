@@ -31,7 +31,7 @@ public class CECommand implements CommandExecutor{
 					p.sendMessage(CE.getPrefix() + "/ce help - Displays help menu");
 					p.sendMessage(CE.getPrefix() + "/ce reload - Reloads config file");
 					
-				}else if(command.equalsIgnoreCase("create")){
+				}else if(command.equalsIgnoreCase("reload")){
 					
 					if(p.hasPermission("cartessentials.reload")){
 						

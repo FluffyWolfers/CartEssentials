@@ -1,0 +1,17 @@
+speeds:
+  # ID of break block. Default: Wool (35)
+  break-id: 35
+  # Multiplies speed by this break-speed. Default: 0.5 (Cuts speed in half)
+  break-speed: 0.5
+  # ID of speed block. Default: Gold Ore (14)
+  speed-id: 14
+  # Multiplies speed by this speed-speed. Default: 2.0
+  speed-speed: 2.0
+  # ID of speed block. Default: Obsidian (49)
+  stop-id: 49
+  # ID of speed block. Default: Iron Block (42)
+  reverser-id: 42
+messages:
+  # Message sent to player when stopped by a stopper block. Default: "&5Thanks for riding!".
+  # You can also use colors. Example: "&5Thanks for riding!" &5 = Purple, etc.
+  eject-msg: '&5Thanks for riding!'

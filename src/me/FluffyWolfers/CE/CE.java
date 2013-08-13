@@ -1,5 +1,7 @@
 package me.FluffyWolfers.CE;
 
+import me.FluffyWolfers.CE.Listeners.CEBlockListener;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -24,6 +26,14 @@ public class CE extends JavaPlugin{
 		
 		this.loadConfigs();
 		
+		this.registerListeners();
+		
+	}
+	
+	public void registerListeners(){
+		
+		Bukkit.getServer().getPluginManager().registerEvents(new CEBlockListener(), this);
+		
 	}
 	
 	public void loadConfigs(){
@@ -33,7 +43,7 @@ public class CE extends JavaPlugin{
 	}
 	
 	public static String getPrefix(){
-		return ChatColor.AQUA + "[" + ChatColor.DARK_AQUA + "ChestRegeneration" + ChatColor.AQUA + "] " + ChatColor.LIGHT_PURPLE;
+		return ChatColor.AQUA + "[" + ChatColor.DARK_AQUA + "ChestEssentials" + ChatColor.AQUA + "] " + ChatColor.LIGHT_PURPLE;
 	}
 	
 	public static String getLogPrefix(){
