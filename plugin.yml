@@ -23,6 +23,7 @@ permissions:
       cartessentials.command.stationary: true
       cartessentials.command.reload: true
       cartessentials.command.fly: true
+      cartessentials.ce: true
   cartessentials.jump:
     default: true
   cartessentials.effects.speed:
