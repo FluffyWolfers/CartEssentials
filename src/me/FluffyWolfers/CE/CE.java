@@ -24,21 +24,20 @@ public class CE extends JavaPlugin{
 		this.getCommand("cartessentials").setExecutor(new CECommand());
 		this.getCommand("ce").setExecutor(new CECommand());
 		
-		this.loadConfigs();
-		
 		this.registerListeners();
 		
+		this.config();
+		
+	}
+	
+	public void config(){
+		this.getConfig().options().copyDefaults(true);
+		this.saveConfig();
 	}
 	
 	public void registerListeners(){
 		
 		Bukkit.getServer().getPluginManager().registerEvents(new CEBlockListener(), this);
-		
-	}
-	
-	public void loadConfigs(){
-		
-		this.saveDefaultConfig();
 		
 	}
 	
