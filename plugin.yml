@@ -40,3 +40,5 @@ permissions:
       cartessentials.effects.break: true
       cartessentials.effects.stop: true
       cartessentials.effects.reverse: true
+  cartessentials.train:
+    default: true

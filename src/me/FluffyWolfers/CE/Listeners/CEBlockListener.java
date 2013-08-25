@@ -1,6 +1,7 @@
 package me.FluffyWolfers.CE.Listeners;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import me.FluffyWolfers.CE.CE;
 import me.FluffyWolfers.CE.CECommand;
@@ -10,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -17,9 +19,13 @@ import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.event.vehicle.VehicleUpdateEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class CEBlockListener implements Listener{
@@ -143,6 +149,99 @@ public class CEBlockListener implements Listener{
 		
 	}
 	
+	ArrayList<Player> trainC = new ArrayList<Player>();
+	HashMap<Minecart, Minecart> carts = new HashMap<Minecart, Minecart>();
+	Minecart minecart = null;
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onClickOnCart(PlayerInteractEntityEvent e){
+		
+		Player p = e.getPlayer();
+		
+		if(p.hasPermission("cartessentials.train")){
+
+			Entity entity = e.getRightClicked();
+			if(entity instanceof Minecart){
+				
+				Minecart cart = (Minecart) entity;
+				minecart = cart;
+				ItemStack hand = p.getItemInHand();
+				Material type = hand.getType();
+				
+				if(type.equals(Material.MINECART)){
+					
+					e.setCancelled(true);
+					
+					trainC.add(p);
+					
+					p.sendMessage(CE.getPrefix() + "Now place a minecart behind this one!");
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onClickOnRail(PlayerInteractEvent e){
+		
+		Player p = e.getPlayer();
+		
+		if(trainC.contains(p)){
+			
+			p.sendMessage("1");
+			
+			if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+
+				p.sendMessage("2");
+				
+				if(p.hasPermission("cartessentials.train")){
+
+					p.sendMessage("3");
+					
+					Block clicked = e.getClickedBlock();
+
+					p.sendMessage("4");
+					
+					if(clicked != null){
+
+						p.sendMessage("5");
+						
+						Material type = clicked.getType();
+
+						p.sendMessage("6");
+						
+						if(type.equals(Material.RAILS)||type.equals(Material.POWERED_RAIL)||type.equals(Material.DETECTOR_RAIL)){
+							
+							p.sendMessage("7");
+							
+							e.setCancelled(true);
+							
+							trainC.remove(p);
+							
+							Location loc = p.getTargetBlock(null, 10).getLocation();
+							loc.setY(loc.getY() + 1);
+							
+							Minecart cart2 = (Minecart) loc.getWorld().spawnEntity(loc, EntityType.MINECART);
+							
+							carts.put(minecart, cart2);
+							
+							p.sendMessage(CE.getPrefix() + "Train Created!");
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onRightClick(PlayerMoveEvent e){
 		
@@ -204,6 +303,22 @@ public class CEBlockListener implements Listener{
 					}
 					
 				}
+				
+			}
+			
+		}
+		
+		Vehicle v = e.getVehicle();
+		
+		if(v instanceof Minecart){
+			
+			Minecart cart = (Minecart) v;
+			
+			if(carts.containsKey(cart)){
+				
+				Minecart cart2 = (Minecart) carts.get(cart);
+				
+				cart2.setVelocity(((Minecart)cart).getVelocity());
 				
 			}
 			
