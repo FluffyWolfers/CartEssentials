@@ -118,11 +118,11 @@ public class CECommand implements CommandExecutor{
 									}
 									
 								}else{
-									p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You do not in a minecart!");
+									p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You are not in a minecart!");
 								}
 								
 							}else{
-								p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You do not in a minecart!");
+								p.sendMessage(CE.getPrefix() + ChatColor.DARK_RED + "You are not in a minecart!");
 							}
 							
 						}else{

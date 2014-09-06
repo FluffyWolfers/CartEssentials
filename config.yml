@@ -10,9 +10,9 @@ speeds:
   speed-id: 14
   # Multiplies speed by this speed-speed. Default: 2.0
   speed-speed: 2.0
-  # ID of speed block. Default: Obsidian (49)
+  # ID of stop block. Default: Obsidian (49)
   stop-id: 49
-  # ID of speed block. Default: Iron Block (42)
+  # ID of reverse block. Default: Iron Block (42)
   reverser-id: 42
   # ID of fly block. Default: Sponge (19)
   fly-id: 19
